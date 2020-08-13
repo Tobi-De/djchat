@@ -104,6 +104,12 @@ class Production(Common):
     )
     sentry_sdk.init(dsn=SENTRY_DSN, integrations=[sentry_logging, DjangoIntegration(), RedisIntegration()])
 
+    # Corsheaders
+    CORS_ORIGIN_WHITELIST = [
+        "https://example.com",
+        "http://localhost:8080",
+        "http://127.0.0.1:9000"
+    ]
     # Your stuff...
     # ------------------------------------------------------------------------------
 
