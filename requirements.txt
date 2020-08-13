@@ -6,7 +6,6 @@ django-environ==0.4.5
 django-configurations==2.2
 django-extensions==2.2.9
 django-redis==4.12.1
-whitenoise==5.2.0
 gunicorn==20.0.4
 whitenoise==5.2.0
 sentry-sdk==0.16.3
@@ -40,6 +39,5 @@ nose-progressive==1.5.2
 coverage==5.2.1
 
 # Static and Media Storage
-django-storages==1.9.1
-boto3==1.14.39
+whitenoise==5.2.0
 
