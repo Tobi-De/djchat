@@ -20,7 +20,7 @@
           <div aria-labelledby="signin-tab" class="tab-pane fade show active" id="signup" role="tabpanel">
             <form @submit.prevent="signUp">
               <div class="form-group">
-                <input class="form-control" id="email" placeholder="Email Address" required type="email"
+                <input class="form-control" id="email" placeholder="Email Address" type="email"
                        v-model="email">
               </div>
               <div class="form-row">
@@ -67,40 +67,57 @@
 
 <script>
 import axios from 'axios'
+import {getAuthURL} from "@/http-common";
 
 export default {
   name: "UserAuth",
   data() {
     return {
-      email: '', username: '', password: '', token: ''
+      email: '', username: '', password: '',
     }
   },
   methods: {
     signUp() {
-      let url = "http://0.0.0.0:8000/dj-rest-auth/registration/"
-      let body = {
-        'email': this.email,
-        'username': this.username,
-        'password1': this.password,
-        'password2': this.password
-      }
-      axios.post(url, body).then(() => {
-        alert("Your account has been created. You will be signed in automatically")
-        this.signIn()
+      // let url = "http://0.0.0.0:8000/dj-rest-auth/registration/"
+      //  let body = {
+      //    'email': this.email,
+      //    'username': this.username,
+      //    'password1': this.password,
+      //    'password2': this.password
+      //  }
+      axios({
+        method: 'post',
+        baseURL: "http://0.0.0.0:8000/dj-rest-auth/registration/",
+        headers: {
+          common: {
+            Accept: 'application/json',
+          }
+        },
+        body: {
+          'email': this.email,
+          'username': this.username,
+          'password1': this.password,
+          'password2': this.password
+        }
+      }).then(response => {
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
       })
+      // axios.post(url, body).then(() => {
+      //   alert("Your account has been created. You will be signed in automatically")
+      //   this.signIn()
+      // })
 
     },
     signIn() {
-      let url = "http://0.0.0.0:8000/dj-rest-auth/login/"
       const credentials = {
         "username": this.username,
-        "email": this.email,
         "password": this.password
       }
-      axios.post(url, credentials).then(response => {
+      axios.post(getAuthURL("login"), credentials).then(response => {
         sessionStorage.setItem('authToken', response.data.key)
         sessionStorage.setItem('username', this.username)
-        console.log(response)
         this.$router.push('/chats')
       })
 

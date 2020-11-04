@@ -42,9 +42,7 @@ class Common(Configuration):
         "django_extensions",
     ]
 
-    LOCAL_APPS = [
-        "backend.users",
-    ]
+    LOCAL_APPS = ["backend.users", "chat.apps.ChatConfig"]
 
     INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -64,7 +62,10 @@ class Common(Configuration):
     SITE_ID = 1
 
     ROOT_URLCONF = "backend.urls"
-    SECRET_KEY = Env("DJANGO_SECRET_KEY", default="kwkgSeC6K+npf6paVstmYyVY5JrH6SO2RzMN2xHFzkkLlSpbZ/m/zmj6Ig==")
+    SECRET_KEY = Env(
+        "DJANGO_SECRET_KEY",
+        default="kwkgSeC6K+npf6paVstmYyVY5JrH6SO2RzMN2xHFzkkLlSpbZ/m/zmj6Ig==",
+    )
     WSGI_APPLICATION = "backend.wsgi.application"
 
     # Email
@@ -205,6 +206,6 @@ class Common(Configuration):
         ),
     }
 
-    # allauth
+    # Rest auth
     # ------------------------------------------------------------------------------
     ACCOUNT_EMAIL_VERIFICATION = "none"
